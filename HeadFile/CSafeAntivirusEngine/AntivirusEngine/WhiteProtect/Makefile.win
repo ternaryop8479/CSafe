@@ -1,0 +1,30 @@
+# Project: WhiteProtect
+# Makefile created by Dev-C++ 5.15
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = dllmain.o
+LINKOBJ  = dllmain.o
+LIBS     = -L"F:/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib32" -static-libgcc -lgraphics -luuid -lmsimg32 -lgdi32 -limm32 -lole32 -loleaut32 -lopengl32 -lglu32 -lgdi32 -lwinmm -lglut32 -lopengl32 -lglaux -lglut -lfaultrep -lfwpuclnt -lgmon -lgpapi -lgraphics -lwsock32 -luser32 -lurlmon -lwininet -ld3dx9 -ld3d9 -lsetupapi -lnetapi32 -lvfw32 -lws2_32 -lsapi -lpsapi -lwtsapi32 -liphlpapi -lglut -lwbemuuid -lntdll -lshlwapi -lwbemuuid -loleaut32 -limagehlp -ldwmapi -lwinhttp -lComctl32 -lComdlg32 -m32 -s
+INCS     = -I"F:/Dev-Cpp/TDM-GCC-64/include" -I"F:/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"F:/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
+CXXINCS  = -I"F:/Dev-Cpp/TDM-GCC-64/include" -I"F:/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"F:/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"F:/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
+BIN      = WhiteProtect.dll
+CXXFLAGS = $(CXXINCS) -O3 -m32 -std=c++11 -DBUILDING_DLL=1
+CFLAGS   = $(INCS) -O3 -m32 -std=c++11 -DBUILDING_DLL=1
+RM       = del /q
+DEF      = libWhiteProtect.def
+STATIC   = libWhiteProtect.a
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN) $(DEF) $(STATIC)
+
+$(BIN): $(LINKOBJ)
+	$(CPP) -shared $(LINKOBJ) -o $(BIN) $(LIBS) -Wl,--output-def,$(DEF),--out-implib,$(STATIC),--add-stdcall-alias
+
+dllmain.o: dllmain.cpp
+	$(CPP) -c dllmain.cpp -o dllmain.o $(CXXFLAGS)
